@@ -1,0 +1,28 @@
+ <aspectj>
+            <aspects>
+              <!-- declare existing aspects to the weaver -->
+              <aspect name="com.dynatrace.mongoaspect.BaseClusterAspect"/>
+              <aspect name="com.dynatrace.mongoaspect.DefaultConnectionPoolAspect"/>
+              <aspect name="com.dynatrace.mongoaspect.InternalStreamConnectionAspect"/>
+            </aspects>
+
+            <!-- <weaver options="-verbose -showWeaveInfo -debug -Xlint:default"> -->
+            <weaver options="-verbose -showWeaveInfo  -Xlint:default">
+               <include within="com.mongodb.internal.connection.DefaultConnectionPool"/>
+               <include within="com.mongodb.internal.connection.DefaultConnectionPool$Task"/>
+               <include within="com.mongodb.internal.connection.InternalStreamConnection"/>
+               <include within="com.mongodb.internal.connection.BaseCluster"/>
+              <!-- Weave types that are within the javax.* or org.aspectj.*
+                   packages. Also weave all types in the foo package that do
+                   not have the @NoWeave annotation. -->
+              
+
+              <!-- Dump all types within the "com.foo.bar" package and sub-packages,
+                   both before are after they are woven,
+                   which can be used for byte-code generated at runtime -->
+              
+              <!-- <dump within="com.dynatrace.mongoaspect..*" beforeandafter="true"/>
+              <dump within="org.mongodb.internal.connection.BaseCluster" beforeandafter="true"/> -->
+            </weaver>
+
+          </aspectj>
